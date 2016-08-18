@@ -1,8 +1,10 @@
 package com.prueba.carlos.pruebaprodigious;
 
-import com.google.inject.Inject;
+import android.content.Context;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -12,12 +14,25 @@ import retrofit2.Response;
  */
 public class ServicioPosts implements IServicioPosts {
 
-    /**Cliente servidor**/
+    /**
+     * Cliente servidor
+     **/
     @Inject
-    private IClientePostsSystem mCliente = new ClientePostsSystem();
+    IClientePostsSystem mCliente = new ClientePostsSystem();
 
-    /** Singleton API visitas **/
+    /**
+     * Singleton API visitas
+     **/
     private IPostsApi mPostsApi;
+
+    /**
+     * Application context
+     **/
+    private Context mContext;
+
+    public ServicioPosts(Context context) {
+        this.mContext = context;
+    }
 
     @Override
     public List<Post> obtenerPosts() {
@@ -58,9 +73,7 @@ public class ServicioPosts implements IServicioPosts {
     /**
      * Este metodo verifica si la respuesta fue exitosa o no
      *
-     * @param response
-     *         La respuesta para ser verificada
-     *
+     * @param response La respuesta para ser verificada
      * @return True si fue exitoso. False de lo contrario.
      */
     public static boolean isSuccessful(Response response) {

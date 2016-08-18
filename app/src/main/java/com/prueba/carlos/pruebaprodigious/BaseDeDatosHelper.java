@@ -5,8 +5,6 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
 import com.j256.ormlite.android.AndroidConnectionSource;
 import com.j256.ormlite.android.AndroidDatabaseConnection;
 import com.j256.ormlite.android.DatabaseTableConfigUtil;
@@ -25,7 +23,6 @@ import java.sql.SQLException;
  *
  * @author <a href="mailto:carlosfelipetorres75@gmail.com">Carlos Torres</a>
  */
-@Singleton
 public class BaseDeDatosHelper extends OrmLiteSqliteOpenHelper {
 
     /**
@@ -41,21 +38,20 @@ public class BaseDeDatosHelper extends OrmLiteSqliteOpenHelper {
     /**
      * Nombre de la BD
      **/
-    private static final String NOMBRE_BD = "dbdplus.db";
+    private static final String NOMBRE_BD = "postmeapp.db";
 
     /**
      * Versión de la BD
      **/
-    private static final int VERSION_BD = 58;
+    private static final int VERSION_BD = 1;
 
     /**
      * Inicia el Helper de la Base de Datos
      *
      * @param context El contexto de la app en el que se va a desarrollar la BD
      */
-    @Inject
     public BaseDeDatosHelper(Context context) {
-        super(context, NOMBRE_BD, null, VERSION_BD, R.raw.ormlite_config);
+        super(context, NOMBRE_BD, null, VERSION_BD);
     }
 
     /**

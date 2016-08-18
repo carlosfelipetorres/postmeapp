@@ -6,8 +6,6 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
 
 import java.io.IOException;
 
@@ -21,7 +19,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  *@author <a href="mailto:carlosfelipetorres75@gmail.com">Carlos Torres</a>
  */
-@Singleton
 public class ClientePostsSystem implements IClientePostsSystem {
 
     /**
@@ -33,6 +30,8 @@ public class ClientePostsSystem implements IClientePostsSystem {
      * The retrofit client
      **/
     private Retrofit mRetrofit;
+
+    public ClientePostsSystem() {}
 
     /**
      * This method returns the API of the selected class

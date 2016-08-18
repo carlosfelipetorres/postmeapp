@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">PruebaProdigious</string>
+    <string name="app_name">PostMeApp</string>
+    <string name="cancel">Cancelar</string>
 </resources>
