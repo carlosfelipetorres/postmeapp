@@ -1,6 +1,5 @@
 package com.prueba.carlos.pruebaprodigious;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -12,43 +11,38 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.github.johnpersano.supertoasts.SuperToast;
-import com.github.johnpersano.supertoasts.util.Style;
-import com.google.inject.Inject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-import roboguice.RoboGuice;
-import roboguice.inject.ContentView;
-import roboguice.inject.InjectView;
-import roboguice.inject.RoboInjector;
+import javax.inject.Inject;
+
+import butterknife.BindView;
 
 /**
  * @author <a href="mailto:carlosfelipetorres75@gmail.com">Carlos Torres</a>
  */
-@ContentView(R.layout.activity_principal_post)
-public class PrincipalPostActivity extends AppCompatActivity implements ItemClickSupport.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
+public class PrincipalPostActivity extends BaseActivity implements
+        ItemClickSupport.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     /**
      * Recycler view de posts
      **/
-    @InjectView(R.id.posts_rv)
-    private RecyclerView mPostsRv;
+    @BindView(R.id.posts_rv)
+    RecyclerView mPostsRv;
 
     /**
      * Swipe and Refresh layout
      **/
-    @InjectView(R.id.refresh_layout)
-    private SwipeRefreshLayout mRefreshLayout;
+    @BindView(R.id.refresh_layout)
+    SwipeRefreshLayout mRefreshLayout;
 
     /**
      * Cargador Progress Wheel
      **/
-    @InjectView(R.id.cargador_pw)
-    private ProgressWheel mCargadorPw;
+    @BindView(R.id.cargador_pw)
+    ProgressWheel mCargadorPw;
 
     /**
      * Posts mAdapter
@@ -59,7 +53,7 @@ public class PrincipalPostActivity extends AppCompatActivity implements ItemClic
      * Servicio posts
      **/
     @Inject
-    private IServicioPosts servicioPosts = new ServicioPosts();
+    IServicioPosts servicioPosts;
 
     /**
      * Lista de posts
@@ -88,11 +82,22 @@ public class PrincipalPostActivity extends AppCompatActivity implements ItemClic
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             favoritos = (List<Post>) extras.get("FAVORITOS");
-        }else{
+        } else {
             favoritos = new ArrayList<>();
         }
 
         new CargaInicialAsyncTask().execute();
+    }
+
+    /**
+     * Injection component. This should be done if there are fields to be injected
+     *
+     * @param diComponent
+     *         Dependency injection
+     */
+    @Override
+    protected void injectComponent(DiComponent diComponent) {
+        diComponent.inject(this);
     }
 
     @Override

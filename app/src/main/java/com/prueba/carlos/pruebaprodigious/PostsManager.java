@@ -11,9 +11,8 @@ public class PostsManager extends CrudManager<Post, Integer> implements IPostMan
 
     /**
      * Constructor para el CRUD Manager
-     *  @param helper Helper de la BD
-     * @param clazz  La clase de la entidad a ser utilizada*/
-    protected PostsManager(BaseDeDatosHelper helper, Class<Post> clazz) throws SQLException {
+     *  @param helper Helper de la BD*/
+    protected PostsManager(BaseDeDatosHelper helper) throws SQLException {
         super(helper, Post.class);
     }
 

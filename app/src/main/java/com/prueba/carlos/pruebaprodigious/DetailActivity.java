@@ -2,77 +2,82 @@ package com.prueba.carlos.pruebaprodigious;
 
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import com.github.johnpersano.supertoasts.SuperToast;
-import com.google.inject.Inject;
 
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+
+import javax.inject.Inject;
+
+import butterknife.BindView;
 
 /**
  * @author <a href="mailto:carlosfelipetorres75@gmail.com">Carlos Torres</a>
  */
-public class DetailActivity extends AppCompatActivity {
+public class DetailActivity extends BaseActivity {
+
+    /**Text view de titulo**/
+    @BindView(R.id.titulo_detalle_tv)
+    TextView mTitulo;
+
+    /** Text view de body**/
+    @BindView(R.id.body_detalle_tv)
+    TextView mBody;
 
     /**
      * Text view de titulo
      **/
-    private TextView mTitulo;
-
-    /**
-     * Text view de body
-     **/
-    private TextView mBody;
+    @BindView(R.id.nombre_tv)
+    TextView mNombre;
 
     /**
      * Text view de titulo
      **/
-    private TextView mNombre;
+    @BindView(R.id.username_tv)
+    TextView mUsername;
 
     /**
      * Text view de titulo
      **/
-    private TextView mUsername;
+    @BindView(R.id.telefono_tv)
+    TextView mTelefono;
 
     /**
      * Text view de titulo
      **/
-    private TextView mTelefono;
+    @BindView(R.id.correo_tv)
+    TextView mCorreo;
 
     /**
      * Text view de titulo
      **/
-    private TextView mCorreo;
-
-    /**
-     * Text view de titulo
-     **/
-    private TextView mWebsite;
+    @BindView(R.id.website_tv)
+    TextView mWebsite;
 
     /**
      * FAB
      **/
-    private com.github.clans.fab.FloatingActionButton fab;
+    @BindView(R.id.favorito_fab)
+    com.github.clans.fab.FloatingActionButton fab;
 
     /**
      * Servicio posts
      **/
     @Inject
-    private IServicioPosts servicioPosts = new ServicioPosts();
+    IServicioPosts servicioPosts;
 
     /**
      * Post manager
      **/
     @Inject
-    private IPostManager postManager;
+    IPostManager postManager;
 
     /**
      * Usuario
@@ -97,14 +102,14 @@ public class DetailActivity extends AppCompatActivity {
         }else{
             favoritos = new ArrayList<>();
         }
-        mTitulo = (TextView) this.findViewById(R.id.titulo_detalle_tv);
-        mBody = (TextView) this.findViewById(R.id.body_detalle_tv);
-        mNombre = (TextView) this.findViewById(R.id.nombre_tv);
-        mUsername = (TextView) this.findViewById(R.id.username_tv);
-        mTelefono = (TextView) this.findViewById(R.id.telefono_tv);
-        mCorreo = (TextView) this.findViewById(R.id.correo_tv);
-        mWebsite = (TextView) this.findViewById(R.id.website_tv);
-        fab = (com.github.clans.fab.FloatingActionButton) this.findViewById(R.id.favorito_fab);
+//        mTitulo = (TextView) this.findViewById(R.id.titulo_detalle_tv);
+//        mBody = (TextView) this.findViewById(R.id.body_detalle_tv);
+//        mNombre = (TextView) this.findViewById(R.id.nombre_tv);
+//        mUsername = (TextView) this.findViewById(R.id.username_tv);
+//        mTelefono = (TextView) this.findViewById(R.id.telefono_tv);
+//        mCorreo = (TextView) this.findViewById(R.id.correo_tv);
+//        mWebsite = (TextView) this.findViewById(R.id.website_tv);
+//        fab = (com.github.clans.fab.FloatingActionButton) this.findViewById(R.id.favorito_fab);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,13 +128,24 @@ public class DetailActivity extends AppCompatActivity {
         }
 
 
-        try {
-            postManager = new PostsManager(new BaseDeDatosHelper(getBaseContext()),Post.class);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            postManager = new PostsManager(new BaseDeDatosHelper(getBaseContext()),Post.class);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
 
         new CargaInicialAsyncTask().execute();
+    }
+
+    /**
+     * Injection component. This should be done if there are fields to be injected
+     *
+     * @param diComponent
+     *         Dependency injection
+     */
+    @Override
+    protected void injectComponent(DiComponent diComponent) {
+        diComponent.inject(this);
     }
 
     /**
